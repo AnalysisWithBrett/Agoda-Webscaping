@@ -37,6 +37,7 @@ The main objective of this project was to extract comprehensive information abou
 - Star ratings (out of 5)
 - Room types 
 - Prices (in US dollars)
+
 Additionally, the goal was to automate the data collection process, ensuring smooth navigation through each page without errors. After the automated extraction, the data is manually cleaned to ensure accuracy and consistency.
 
 ## Installation
