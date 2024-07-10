@@ -128,14 +128,14 @@ scrolling_script <- scrolling_script <- "
 ";
 ```
 ## Building the components for my automated webscraping
-The code for this is a loop and it is nearly 200 lines long, so I thought it would be better for me to walk you through the code separately.
+The code for this is a loop and it is nearly 200 lines long, so I thought it would be better for me to walk you through the code in chunks.
 
 ### Clicking the "Top Reviewed" Button
 This step is my personal choice. I noticed that the properties are arranged randomly in the default page so I created this code to click the "Top Reviewed" button as this will reorder the properties from highest to lowest number of reviews. This step is important for the loop.
 
 ![Sample](https://github.com/AnalysisWithBrett/Agoda-Webscaping/blob/main/top%20reviewed.png)
 
-Here is the following code the presses the "Top Reviewed Button"
+Here is the following code that presses the "Top Reviewed Button":
 ```bash
 # Clicking the top view button
 remDr$findElement(using = 'xpath', "//div[contains(@class, 'Box-sc-kv6pi1-0') and contains(@class, 'cRTyjI')]")$clickElement()
@@ -172,7 +172,7 @@ property_urls <- unique(na.omit(property_urls))
 first_property <- remDr$findElement(using = 'xpath', '//h3[contains(@class, "sc-jrAGrp") and contains(@class, "sc-kEjbxe") and contains(@class, "eDlaBj") and contains(@class, "dscgss")]')$getElementText() %>% unlist()
 ```
 ### Moving to the next page
-After collecting data from the first page, you'll need to move on to the next page. To facilitate this, I created a for loop that ensures the code only clicks the "Next" button if the page number is greater than 1.
+After collecting data from the first page, you'll need to move on to the next page. To facilitate this, I created a for loop to ensure that the code clicks the "Next" button if the page number is greater than 1.
 ```bash
 for (page in 1:6) {  # Change the range as needed to cover the required pages
   # Only click the "Next" button after the first page
@@ -271,7 +271,7 @@ price_elements <- remDr$findElements(using = "xpath", "//span[contains(@class, '
 prices <- sapply(price_elements, function(elem) elem$getElementText() %>% unlist())
 ```
 ### Click Show More Button
-In Agoda, you will notice that there is an option to press the "Show more" button within the room type box, which will reveal you more prices. The code below will make sure that the code clicks the "Show More" button before it collects the prices and roomtype data.
+In Agoda, you will notice that there is an option to press the "Show more" button within the room type box, which will reveal more prices. The code below will make sure that the code clicks the "Show More" button before it collects the prices and roomtype data.
 ```bash
 # Locate and click all "Show more" buttons
 buttons <- remDr$findElements(using = 'xpath', "//div[@data-selenium='MasterRoom-showMoreLessButton']")
@@ -306,7 +306,7 @@ if (length(room) == length(prices)) {
 }
 ```
 ### The Super Loop
-That's all the components explain. You can check out the [R Code](https://github.com/AnalysisWithBrett/Agoda-Webscaping/blob/main/agoda%20hotel.R) to see the whole code. I just want to mention that these codes within the loop is used to help you track the progress of the webscraping algorithm.
+That's all the components explained. You can check out the [R Code](https://github.com/AnalysisWithBrett/Agoda-Webscaping/blob/main/agoda%20hotel.R) to see the whole code. I just want to mention that these codes within the loop is used to help you track the progress of the webscraping algorithm.
 ```bash
 # Indicating the page number 
 print(paste("Page:", page))
@@ -319,7 +319,7 @@ print(paste("Property Number:", length(unique(agoda_data$Property_Name))))
 print(paste("Processed property:", property_name, "with", length(agoda_property_data$Property_Name), "entries"))
 ```
 ### Closing the server
-After you finish collecting the data, you can close the RSelenium server with this code:
+After collecting the data, you can close the RSelenium server with this code:
 ```bash
 # Closing the server
 remDr$close()
